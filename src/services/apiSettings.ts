@@ -1,6 +1,7 @@
 import supabase from "./supabase";
+import { SettingsType } from "../types/collection";
 
-export async function getSettings() {
+export async function getSettings(): Promise<SettingsType> {
   const { data, error } = await supabase.from("settings").select("*").single();
 
   if (error) {
@@ -11,12 +12,15 @@ export async function getSettings() {
 }
 
 // We expect a newSetting object that looks like {setting: newValue}
-export async function updateSetting(newSetting) {
+export async function updateSetting(
+  newSetting: SettingsType
+): Promise<SettingsType> {
+  // There is only ONE row of settings, and it has the ID=1, and so this is the updated one
   const { data, error } = await supabase
     .from("settings")
     .update(newSetting)
-    // There is only ONE row of settings, and it has the ID=1, and so this is the updated one
     .eq("id", 1)
+    .select()
     .single();
 
   if (error) {
