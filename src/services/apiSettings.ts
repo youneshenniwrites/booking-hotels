@@ -6,7 +6,7 @@ export async function getSettings(): Promise<SettingsType> {
 
   if (error) {
     console.error(error);
-    throw new Error("Settings could not be loaded");
+    throw new Error("Settings could not be loaded.");
   }
   return data;
 }
@@ -25,7 +25,7 @@ export async function updateSetting(
 
   if (error) {
     console.error(error);
-    throw new Error("Settings could not be updated");
+    throw new Error("Settings could not be updated.");
   }
   return data;
 }

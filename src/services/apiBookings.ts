@@ -84,7 +84,7 @@ export async function updateBooking(
 
   if (error) {
     console.error(error);
-    throw new Error("Booking could not be updated");
+    throw new Error("Booking could not be updated.");
   }
   return data;
 }
@@ -95,7 +95,7 @@ export async function deleteBooking(id: number): Promise<null> {
 
   if (error) {
     console.error(error);
-    throw new Error("Booking could not be deleted");
+    throw new Error("Booking could not be deleted.");
   }
   return data;
 }

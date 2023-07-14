@@ -1,4 +1,7 @@
 import styled from "styled-components";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { PostgrestError } from "@supabase/supabase-js";
+import { deleteCabin } from "../../services/apiCabins";
 import { CabinType } from "../../types/collection";
 import { formatCurrency } from "../../utils/helpers";
 
@@ -42,7 +45,27 @@ const Discount = styled.div`
 `;
 
 export default function CabinRow({ cabin }: { cabin: CabinType }) {
-  const { name, maxCapacity, regularPrice, discount, image } = cabin;
+  const {
+    id: cabinId,
+    name,
+    maxCapacity,
+    regularPrice,
+    discount,
+    image,
+  } = cabin;
+
+  const queryClient = useQueryClient();
+
+  const { isLoading: isDeleting, mutate } = useMutation({
+    mutationFn: deleteCabin,
+    onSuccess: () => {
+      alert("Cabin successfully deleted.");
+
+      return queryClient.invalidateQueries({ queryKey: ["cabins"] });
+    },
+    onError: (err: PostgrestError | null) => alert(err?.message),
+  });
+
   return (
     <TableRow role="row">
       <Img src={image?.toString()} />
@@ -50,7 +73,9 @@ export default function CabinRow({ cabin }: { cabin: CabinType }) {
       <div>Fits up to {maxCapacity} guests</div>
       <Price>{formatCurrency(regularPrice)}</Price>
       <Discount>{formatCurrency(discount)}</Discount>
-      <button>Delete</button>
+      <button onClick={() => mutate(cabinId)} disabled={isDeleting}>
+        Delete
+      </button>
     </TableRow>
   );
 }
