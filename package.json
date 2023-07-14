@@ -7,9 +7,11 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "gen-types": "npx supabase gen types typescript --linked > src/types/supabase.ts"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.26.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.10.1",
@@ -25,6 +27,7 @@
     "eslint": "^8.44.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.1",
+    "supabase": "^1.77.9",
     "typescript": "^5.0.2",
     "vite": "^4.4.0"
   }
