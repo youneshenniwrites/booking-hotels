@@ -4,6 +4,7 @@ import { PostgrestError } from "@supabase/supabase-js";
 import { deleteCabin } from "../../services/apiCabins";
 import { CabinType } from "../../types/collection";
 import { formatCurrency } from "../../utils/helpers";
+import { toast } from "react-hot-toast";
 
 const TableRow = styled.div`
   display: grid;
@@ -59,11 +60,14 @@ export default function CabinRow({ cabin }: { cabin: CabinType }) {
   const { isLoading: isDeleting, mutate } = useMutation({
     mutationFn: deleteCabin,
     onSuccess: () => {
-      alert("Cabin successfully deleted.");
+      toast.success("Cabin successfully deleted.");
 
       return queryClient.invalidateQueries({ queryKey: ["cabins"] });
     },
-    onError: (err: PostgrestError | null) => alert(err?.message),
+    onError: (err: PostgrestError | null) =>
+      toast.error(
+        err?.message || "An unknown error occurred. Please try again."
+      ),
   });
 
   return (
