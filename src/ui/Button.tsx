@@ -1,3 +1,4 @@
+import { ReactNode } from "react";
 import styled, { css } from "styled-components";
 
 const sizes = {
@@ -47,3 +48,17 @@ const variations = {
     }
   `,
 };
+
+type ButtonProps = {
+  children: ReactNode;
+  onClick: () => void;
+  disabled: boolean;
+};
+
+export default function Button({ children, onClick, disabled }: ButtonProps) {
+  return (
+    <button onClick={onClick} disabled={disabled}>
+      {children}
+    </button>
+  );
+}
