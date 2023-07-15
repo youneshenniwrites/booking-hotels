@@ -2,6 +2,12 @@ import styled from "styled-components";
 import Button from "./Button";
 import Heading from "./Heading";
 
+type ConfirmDeleteProps = {
+  resourceName: string;
+  onConfirm: () => void;
+  disabled?: boolean;
+};
+
 const StyledConfirmDelete = styled.div`
   width: 40rem;
   display: flex;
@@ -20,7 +26,11 @@ const StyledConfirmDelete = styled.div`
   }
 `;
 
-function ConfirmDelete({ resourceName, onConfirm, disabled }) {
+function ConfirmDelete({
+  resourceName,
+  onConfirm,
+  disabled,
+}: ConfirmDeleteProps) {
   return (
     <StyledConfirmDelete>
       <Heading as="h3">Delete {resourceName}</Heading>

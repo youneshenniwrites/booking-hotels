@@ -8,7 +8,9 @@ function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  function handleSubmit() {}
+  function handleSubmit() {
+    return null;
+  }
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -19,7 +21,9 @@ function LoginForm() {
           // This makes this form better for password managers
           autoComplete="username"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e: React.SetStateAction<string>) =>
+            setEmail(e.target.value)
+          }
         />
       </FormRowVertical>
       <FormRowVertical label="Password">
@@ -28,11 +32,15 @@ function LoginForm() {
           id="password"
           autoComplete="current-password"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e: React.SetStateAction<string>) =>
+            setPassword(e.target.value)
+          }
         />
       </FormRowVertical>
       <FormRowVertical>
-        <Button size="large">Login</Button>
+        <Button size="large" onClick={() => console.log("Login")}>
+          Login
+        </Button>
       </FormRowVertical>
     </Form>
   );

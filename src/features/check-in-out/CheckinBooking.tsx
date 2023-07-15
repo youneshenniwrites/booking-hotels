@@ -9,6 +9,15 @@ import ButtonText from "../../ui/ButtonText";
 
 import { useMoveBack } from "../../hooks/useMoveBack";
 
+type BookingType = {
+  id: number;
+  guests: string[];
+  totalPrice: number;
+  numGuests: number;
+  hasBreakfast: boolean;
+  numNights: number;
+};
+
 const Box = styled.div`
   /* Box */
   background-color: var(--color-grey-0);
@@ -20,18 +29,27 @@ const Box = styled.div`
 function CheckinBooking() {
   const moveBack = useMoveBack();
 
-  const booking = {};
+  const booking: BookingType = {
+    id: 123,
+    guests: ["1", "3", "4"],
+    totalPrice: 235,
+    numGuests: 3,
+    hasBreakfast: true,
+    numNights: 5,
+  };
 
   const {
     id: bookingId,
-    guests,
-    totalPrice,
-    numGuests,
-    hasBreakfast,
-    numNights,
+    // guests,
+    // totalPrice,
+    // numGuests,
+    // hasBreakfast,
+    // numNights,
   } = booking;
 
-  function handleCheckin() {}
+  function handleCheckin() {
+    return null;
+  }
 
   return (
     <>

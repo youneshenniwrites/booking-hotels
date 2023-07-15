@@ -1,5 +1,9 @@
-import { ReactNode } from "react";
 import styled, { css } from "styled-components";
+
+type ButtonProps = {
+  variation?: "primary" | "secondary" | "danger";
+  size?: "small" | "medium" | "large";
+};
 
 const sizes = {
   small: css`
@@ -49,16 +53,39 @@ const variations = {
   `,
 };
 
-type ButtonProps = {
-  children: ReactNode;
-  onClick: () => void;
-  disabled: boolean;
+const Button = styled.button<ButtonProps>`
+  border: none;
+  border-radius: var(--border-radius-sm);
+  box-shadow: var(--shadow-sm);
+
+  ${({ size }) => getSizeStyles(size)}
+  ${({ variation }) => getVariationStyles(variation)}
+`;
+
+const getSizeStyles = (size: ButtonProps["size"]) => {
+  switch (size) {
+    case "small":
+      return sizes.small;
+    case "medium":
+      return sizes.medium;
+    case "large":
+      return sizes.large;
+    default:
+      return sizes.medium;
+  }
 };
 
-export default function Button({ children, onClick, disabled }: ButtonProps) {
-  return (
-    <button onClick={onClick} disabled={disabled}>
-      {children}
-    </button>
-  );
-}
+const getVariationStyles = (variation: ButtonProps["variation"]) => {
+  switch (variation) {
+    case "primary":
+      return variations.primary;
+    case "secondary":
+      return variations.secondary;
+    case "danger":
+      return variations.danger;
+    default:
+      return variations.primary;
+  }
+};
+
+export default Button;
