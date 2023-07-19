@@ -7,28 +7,28 @@ import FormRow from "../../shared/ui/FormRow";
 import Input from "../../shared/ui/Input";
 import Textarea from "../../shared/ui/Textarea";
 
+import { useUpdateCabin } from "./hooks/createUpdateCabin";
 import { useCreateCabin } from "./hooks/useCreateCabin";
-import { useEditCabin } from "./hooks/useEditCabin";
 
-function CreateCabinForm({ cabinToEdit = {} }) {
+function CreateCabinForm({ cabinToUpdate = {} }) {
   const { isCreating, createCabin } = useCreateCabin();
-  const { isEditing, editCabin } = useEditCabin();
-  const isWorking = isCreating || isEditing;
+  const { isUpdating, updateCabin } = useUpdateCabin();
+  const isWorking: boolean = isCreating || isUpdating;
 
-  const { id: editId, ...editValues } = cabinToEdit;
-  const isEditSession = Boolean(editId);
+  const { id: updateId, ...updateValues } = cabinToUpdate;
+  const isUpdateSession = Boolean(updateId);
 
   const { register, handleSubmit, reset, getValues, formState } = useForm({
-    defaultValues: isEditSession ? editValues : {},
+    defaultValues: isUpdateSession ? updateValues : {},
   });
   const { errors } = formState;
 
   function onSubmit(data) {
     const image = typeof data.image === "string" ? data.image : data.image[0];
 
-    if (isEditSession)
-      editCabin(
-        { newCabinData: { ...data, image }, id: editId },
+    if (isUpdateSession)
+      updateCabin(
+        { newCabinData: { ...data, image }, id: updateId },
         {
           onSuccess: (data) => {
             reset();
@@ -58,7 +58,7 @@ function CreateCabinForm({ cabinToEdit = {} }) {
           id="name"
           disabled={isWorking}
           {...register("name", {
-            required: "This field is required",
+            required: "This field is required.",
           })}
         />
       </FormRow>
@@ -69,10 +69,10 @@ function CreateCabinForm({ cabinToEdit = {} }) {
           id="maxCapacity"
           disabled={isWorking}
           {...register("maxCapacity", {
-            required: "This field is required",
+            required: "This field is required.",
             min: {
               value: 1,
-              message: "Capacity should be at least 1",
+              message: "Capacity should be at least 1.",
             },
           })}
         />
@@ -84,10 +84,10 @@ function CreateCabinForm({ cabinToEdit = {} }) {
           id="regularPrice"
           disabled={isWorking}
           {...register("regularPrice", {
-            required: "This field is required",
+            required: "This field is required.",
             min: {
               value: 1,
-              message: "Capacity should be at least 1",
+              message: "Capacity should be at least 1.",
             },
           })}
         />
@@ -103,7 +103,7 @@ function CreateCabinForm({ cabinToEdit = {} }) {
             required: "This field is required",
             validate: (value) =>
               value <= getValues().regularPrice ||
-              "Discount should be less than regular price",
+              "Discount should be less than regular price.",
           })}
         />
       </FormRow>
@@ -118,7 +118,7 @@ function CreateCabinForm({ cabinToEdit = {} }) {
           defaultValue=""
           disabled={isWorking}
           {...register("description", {
-            required: "This field is required",
+            required: "This field is required.",
           })}
         />
       </FormRow>
@@ -128,7 +128,7 @@ function CreateCabinForm({ cabinToEdit = {} }) {
           id="image"
           accept="image/*"
           {...register("image", {
-            required: isEditSession ? false : "This field is required",
+            required: isUpdateSession ? false : "This field is required.",
           })}
         />
       </FormRow>
@@ -139,7 +139,7 @@ function CreateCabinForm({ cabinToEdit = {} }) {
           Cancel
         </Button>
         <Button disabled={isWorking}>
-          {isEditSession ? "Edit cabin" : "Create new cabin"}
+          {isUpdateSession ? "Update cabin" : "Create new cabin"}
         </Button>
       </FormRow>
     </Form>

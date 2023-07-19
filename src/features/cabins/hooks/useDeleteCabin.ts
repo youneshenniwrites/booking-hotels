@@ -8,12 +8,11 @@ export function useDeleteCabin() {
 
   const { isLoading: isDeleting, mutate: deleteCabin } = useMutation({
     mutationFn: deleteCabinApi,
-    onSuccess: () => {
-      toast.success("Cabin successfully deleted.");
-
-      queryClient.invalidateQueries({
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
         queryKey: ["cabins"],
       });
+      toast.success("Cabin successfully deleted.");
     },
     onError: (err: PostgrestError | null) =>
       toast.error(

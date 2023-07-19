@@ -3,14 +3,15 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 import { createUpdateCabin } from "../../../services/apiCabins";
 
-export function useCreateCabin() {
+export function useUpdateCabin() {
   const queryClient = useQueryClient();
 
-  const { mutate: createCabin, isLoading: isCreating } = useMutation({
-    mutationFn: createUpdateCabin,
+  const { mutate: updateCabin, isLoading: isUpdating } = useMutation({
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    mutationFn: ({ newCabinData, id }) => createUpdateCabin(newCabinData),
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ["cabins"] });
-      toast.success("New cabin successfully created.");
+      toast.success("Cabin successfully updated.");
     },
     onError: (err: PostgrestError | null) =>
       toast.error(
@@ -18,5 +19,5 @@ export function useCreateCabin() {
       ),
   });
 
-  return { isCreating, createCabin };
+  return { isUpdating, updateCabin };
 }
