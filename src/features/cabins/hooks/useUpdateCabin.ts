@@ -7,8 +7,7 @@ export function useUpdateCabin() {
   const queryClient = useQueryClient();
 
   const { mutate: updateCabin, isLoading: isUpdating } = useMutation({
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    mutationFn: ({ newCabinData, id }) => createUpdateCabin(newCabinData),
+    mutationFn: ({ newCabinData, id }) => createUpdateCabin(newCabinData, id),
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ["cabins"] });
       toast.success("Cabin successfully updated.");

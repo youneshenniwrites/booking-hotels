@@ -20,7 +20,11 @@ const TableRow = styled.div`
   }
 `;
 
-const Img = styled.img`
+type ImagProp = {
+  src: string | null;
+};
+
+const Img = styled.img<ImagProp>`
   display: block;
   width: 6.4rem;
   aspect-ratio: 3 / 2;
@@ -79,7 +83,7 @@ export default function CabinRow({ cabin }: { cabin: CabinType }) {
         <Img src={image} />
         <Cabin>{name}</Cabin>
         <div>Fits up to {maxCapacity} guests</div>
-        <Price>{formatCurrency(regularPrice)}</Price>
+        <Price>{regularPrice && formatCurrency(regularPrice)}</Price>
         {discount ? (
           <Discount>{formatCurrency(discount)}</Discount>
         ) : (

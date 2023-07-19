@@ -7,10 +7,11 @@ import FormRow from "../../shared/ui/FormRow";
 import Input from "../../shared/ui/Input";
 import Textarea from "../../shared/ui/Textarea";
 
-import { useUpdateCabin } from "./hooks/createUpdateCabin";
+import { CabinType } from "../../types/collection";
 import { useCreateCabin } from "./hooks/useCreateCabin";
+import { useUpdateCabin } from "./hooks/useUpdateCabin";
 
-function CreateCabinForm({ cabinToUpdate = {} }) {
+function CreateCabinForm({ cabinToUpdate }: { cabinToUpdate: CabinType }) {
   const { isCreating, createCabin } = useCreateCabin();
   const { isUpdating, updateCabin } = useUpdateCabin();
   const isWorking: boolean = isCreating || isUpdating;
@@ -23,30 +24,26 @@ function CreateCabinForm({ cabinToUpdate = {} }) {
   });
   const { errors } = formState;
 
-  function onSubmit(data) {
+  function onSubmit(data: CabinType) {
     const image = typeof data.image === "string" ? data.image : data.image[0];
 
     if (isUpdateSession)
       updateCabin(
         { newCabinData: { ...data, image }, id: updateId },
         {
-          onSuccess: (data) => {
-            reset();
-          },
+          onSuccess: () => reset(),
         }
       );
     else
       createCabin(
         { ...data, image: image },
         {
-          onSuccess: (data) => {
-            reset();
-          },
+          onSuccess: () => reset(),
         }
       );
   }
 
-  function onError(errors) {
+  function onError() {
     // console.log(errors);
   }
 
