@@ -1,3 +1,4 @@
+import { PostgrestError } from "@supabase/supabase-js";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 import { deleteCabin as deleteCabinApi } from "../../../services/apiCabins";
@@ -14,7 +15,10 @@ export function useDeleteCabin() {
         queryKey: ["cabins"],
       });
     },
-    onError: (err) => toast.error(err.message),
+    onError: (err: PostgrestError | null) =>
+      toast.error(
+        err?.message || "An unknown error occurred. Please try again."
+      ),
   });
 
   return { isDeleting, deleteCabin };
