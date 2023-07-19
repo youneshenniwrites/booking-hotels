@@ -1,6 +1,6 @@
-import Form from "../../ui/Form";
-import FormRow from "../../ui/FormRow";
-import Input from "../../ui/Input";
+import Form from "../../shared/ui/Form";
+import FormRow from "../../shared/ui/FormRow";
+import Input from "../../shared/ui/Input";
 
 function UpdateSettingsForm() {
   return (

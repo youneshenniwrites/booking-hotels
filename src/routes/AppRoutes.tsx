@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Account from "../pages/Account";
 import Bookings from "../pages/Bookings";
 import Cabins from "../pages/Cabins";
@@ -7,7 +7,7 @@ import Login from "../pages/Login";
 import PageNotFound from "../pages/PageNotFound";
 import Settings from "../pages/Settings";
 import Users from "../pages/Users";
-import AppLayout from "../ui/AppLayout";
+import AppLayout from "../shared/ui/AppLayout";
 
 export default function AppRoutes() {
   return (

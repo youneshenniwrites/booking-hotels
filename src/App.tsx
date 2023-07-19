@@ -2,8 +2,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import AppRoutes from "./routes/AppRoutes";
+import NotificationToaster from "./shared/ui/Toaster";
 import GlobalStyles from "./styles/GlobalStyles";
-import NotificationToaster from "./ui/Toaster";
 
 const queryClient = new QueryClient({
   defaultOptions: {

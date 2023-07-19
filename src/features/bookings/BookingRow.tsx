@@ -1,10 +1,13 @@
 import { format, isToday } from "date-fns";
 import styled from "styled-components";
 
-import Table from "../../ui/Table";
-import Tag from "../../ui/Tag";
+import Table from "../../shared/ui/Table";
+import Tag from "../../shared/ui/Tag";
 
-import { formatCurrency, formatDistanceFromNow } from "../../utils/helpers";
+import {
+  formatCurrency,
+  formatDistanceFromNow,
+} from "../../shared/utils/helpers";
 
 const Cabin = styled.div`
   font-size: 1.6rem;

@@ -1,5 +1,5 @@
-import Menus from "../../ui/Menus";
-import Table from "../../ui/Table";
+import Menus from "../../shared/ui/Menus";
+import Table from "../../shared/ui/Table";
 import BookingRow from "./BookingRow";
 
 function BookingTable() {

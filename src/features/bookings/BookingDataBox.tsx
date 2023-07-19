@@ -7,10 +7,13 @@ import {
 } from "react-icons/hi2";
 import styled from "styled-components";
 
-import DataItem from "../../ui/DataItem";
-import { Flag } from "../../ui/Flag";
+import DataItem from "../../shared/ui/DataItem";
+import { Flag } from "../../shared/ui/Flag";
 
-import { formatCurrency, formatDistanceFromNow } from "../../utils/helpers";
+import {
+  formatCurrency,
+  formatDistanceFromNow,
+} from "../../shared/utils/helpers";
 
 const StyledBookingDataBox = styled.section`
   /* Box */

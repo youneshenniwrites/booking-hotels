@@ -1,13 +1,13 @@
 import styled from "styled-components";
 import BookingDataBox from "../../features/bookings/BookingDataBox";
 
-import Button from "../../ui/Button";
-import ButtonGroup from "../../ui/ButtonGroup";
-import ButtonText from "../../ui/ButtonText";
-import Heading from "../../ui/Heading";
-import Row from "../../ui/Row";
+import Button from "../../shared/ui/Button";
+import ButtonGroup from "../../shared/ui/ButtonGroup";
+import ButtonText from "../../shared/ui/ButtonText";
+import Heading from "../../shared/ui/Heading";
+import Row from "../../shared/ui/Row";
 
-import { useMoveBack } from "../../hooks/useMoveBack";
+import { useMoveBack } from "../../shared/hooks/useMoveBack";
 
 type BookingType = {
   id: number;
