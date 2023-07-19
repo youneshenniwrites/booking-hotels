@@ -12,62 +12,12 @@ export async function getCabins(): Promise<CabinType[]> {
   return data;
 }
 
-export async function createUpdateCabin({
-  newCabin,
-  id,
-}: {
-  newCabin: CabinType;
-  id: number;
-}): Promise<CabinType> {
-  const hasImagePath = newCabin.image?.startsWith?.(supabaseUrl);
-
-  const imageName: string = `${Math.random()}-${
-    newCabin.image.name
-  }`.replaceAll("/", "");
-
-  const imagePath: string = hasImagePath
-    ? newCabin.image
-    : `${supabaseUrl}/storage/v1/object/public/cabin-images/${imageName}`;
-
-  //* 1. Create/update cabin
-  let query = supabase.from("cabins");
-
-  //* A) CREATE
-  if (!id) query = query.insert([{ ...newCabin, image: imagePath }]);
-
-  //* B) UPDATE
-  if (id) query = query.update({ ...newCabin, image: imagePath }).eq("id", id);
-
-  const { data, error } = await query.select().single();
-
-  if (error) {
-    console.error(error);
-    throw new Error("Cabin could not be created.");
-  }
-
-  //* 2. Upload image
-  if (hasImagePath) return data;
-
-  const { error: storageError } = await supabase.storage
-    .from("cabin-images")
-    .upload(imageName, newCabin.image);
-
-  //* 3. Delete the cabin IF there was an error uplaoding image
-  if (storageError) {
-    await supabase.from("cabins").delete().eq("id", data.id);
-    console.error(storageError);
-    throw new Error(
-      "Cabin image could not be uploaded and the cabin was not created."
-    );
-  }
-
-  return data;
-}
+type CabinInput = Omit<CabinType, "image"> & { image: File };
 
 export async function createCabin({
   newCabin,
 }: {
-  newCabin: { image: File };
+  newCabin: CabinInput;
 }): Promise<CabinType> {
   const imageName = `${Math.random()}-${newCabin.image.name}`.replace(
     /\//g,
@@ -99,6 +49,28 @@ export async function createCabin({
     throw new Error(
       "Cabin image could not be uploaded and the cabin was not created."
     );
+  }
+
+  return data;
+}
+
+export async function updateCabin({
+  newCabin,
+  id,
+}: {
+  newCabin: CabinType;
+  id: number;
+}): Promise<CabinType> {
+  const query = supabase
+    .from("cabins")
+    .update({ ...newCabin })
+    .eq("id", id);
+
+  const { data, error } = await query.select().single();
+
+  if (error) {
+    console.error(error);
+    throw new Error("Cabin could not be updated.");
   }
 
   return data;
