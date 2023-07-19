@@ -10,7 +10,7 @@ export function useUpdateSetting() {
     mutationFn: updateSettingApi,
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ["settings"] });
-      toast.success("Setting successfully edited");
+      toast.success("Setting successfully edited.");
     },
     onError: (err: PostgrestError | null) =>
       toast.error(
