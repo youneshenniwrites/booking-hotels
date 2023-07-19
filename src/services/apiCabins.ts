@@ -1,7 +1,16 @@
 import { CabinType } from "../types/collection";
 import supabase, { supabaseUrl } from "./supabase";
 
-// FileList;
+export async function getCabins(): Promise<CabinType[]> {
+  const { data, error } = await supabase.from("cabins").select("*");
+
+  if (error) {
+    console.error(error);
+    throw new Error("Cabins could not be loaded.");
+  }
+
+  return data;
+}
 
 export async function createEditCabin({
   newCabin,
