@@ -1,5 +1,5 @@
-import supabase from "./supabase";
 import { SettingsType } from "../types/collection";
+import supabase from "./supabase";
 
 export async function getSettings(): Promise<SettingsType> {
   const { data, error } = await supabase.from("settings").select("*").single();
